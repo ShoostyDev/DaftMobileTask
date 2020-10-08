@@ -16,26 +16,24 @@ public class GameManager : MonoBehaviour
     {
         GameState = GameStatePersistance.LoadGameStateData();
         GameEventBus = new GameEventBus();
-        
+
         GameEventBus.On<GameStartedEvent>(OnGameStartedEvent);
-    }
-
-    void Start()
-    {
-    }
-
-    private void SetScore(float score)
-    {
-        GameState.TimeScore = score;
+        GameEventBus.On<GameEndedEvent>(OnGameEndedEvent);
     }
 
     private void OnGameStartedEvent(GameStartedEvent arg)
     {
-        AsyncOperation scene = SceneManager.LoadSceneAsync("GameplayScene", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("GameplayScene", LoadSceneMode.Additive);
+    }
+
+    private void OnGameEndedEvent(GameEndedEvent arg)
+    {
+        SceneManager.UnloadSceneAsync("GameplayScene");
     }
 
     void OnDestroy()
     {
         GameEventBus.Off<GameStartedEvent>(OnGameStartedEvent);
+        GameEventBus.Off<GameEndedEvent>(OnGameEndedEvent);
     }
 }

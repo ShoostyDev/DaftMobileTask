@@ -36,18 +36,23 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\_Project\Scripts\Gameplay\Managers\GameManager.cs" />
-     <Compile Include="Assets\_Project\Scripts\Interfaces\ITapable.cs" />
-     <Compile Include="Assets\_Project\Scripts\Gameplay\States\GameState.cs" />
-     <Compile Include="Assets\_Project\Scripts\Gameplay\Controllers\MainMenuController.cs" />
-     <Compile Include="Assets\_Project\Scripts\Entities\TapButton.cs" />
      <Compile Include="Assets\_Project\Scripts\Entities\ContinueTapButton.cs" />
-     <Compile Include="Assets\_Project\Scripts\Entities\GameOverTapButton.cs" />
      <Compile Include="Assets\_Project\Scripts\Persistance\GameStatePersistance.cs" />
-     <Compile Include="Assets\_Project\Scripts\Gameplay\Controllers\GameplayController.cs" />
+     <Compile Include="Assets\_Project\Scripts\Gameplay\Controllers\MainMenuController.cs" />
      <Compile Include="Assets\_Project\Scripts\Infrastructure\GameEventBus.cs" />
-     <Compile Include="Assets\_Project\Scripts\Infrastructure\GameEvents.cs" />
+     <Compile Include="Assets\_Project\Scripts\Gameplay\Controllers\HUDController.cs" />
+     <Compile Include="Assets\_Project\Scripts\Entities\GameOverTapButton.cs" />
+     <Compile Include="Assets\_Project\Scripts\UITweener.cs" />
+     <Compile Include="Assets\_Project\Scripts\Infrastructure\ObjectPool.cs" />
+     <Compile Include="Assets\_Project\Scripts\Entities\BaseClasses\TapButton.cs" />
      <Compile Include="Assets\_Project\Scripts\Interfaces\IGameEvent.cs" />
+     <Compile Include="Assets\_Project\Scripts\Gameplay\Managers\GameManager.cs" />
+     <Compile Include="Assets\_Project\Scripts\Gameplay\States\GameState.cs" />
+     <Compile Include="Assets\_Project\Scripts\Interfaces\IPoolable.cs" />
+     <Compile Include="Assets\_Project\Scripts\Gameplay\Controllers\GameplayController.cs" />
+     <Compile Include="Assets\_Project\Scripts\Infrastructure\GameEvents.cs" />
+     <Compile Include="Assets\_Project\Scripts\IEnumerableExtensions.cs" />
+     <Compile Include="Assets\_Project\Scripts\CheckDist.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
