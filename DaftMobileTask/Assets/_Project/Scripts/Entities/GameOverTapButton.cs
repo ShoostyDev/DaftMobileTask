@@ -1,12 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.Infrastructure;
 
 public class GameOverTapButton : TapButton
 {
+    protected override IEnumerator LifeTimeCounter()
+    {
+        while (Timer < LifeTime)
+        {
+            Timer += Time.deltaTime;
+            yield return null;
+        }
+
+        Deactivate();
+    }
+
     protected override void OnButtonTap()
     {
-        GameManager.GameEventBus.Trigger<GameOverEvent>(new GameOverEvent());
+        GameOver();
     }
 }

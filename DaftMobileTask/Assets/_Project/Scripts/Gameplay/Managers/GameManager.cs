@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
         GameEventBus.On<GameStartedEvent>(OnGameStartedEvent);
         GameEventBus.On<GameEndedEvent>(OnGameEndedEvent);
+        GameEventBus.On<NewHighScoreEvent>(OnNewHighScoreEvent);
     }
 
     private void OnGameStartedEvent(GameStartedEvent arg)
@@ -31,9 +32,15 @@ public class GameManager : MonoBehaviour
         SceneManager.UnloadSceneAsync("GameplayScene");
     }
 
+    private void OnNewHighScoreEvent(NewHighScoreEvent arg)
+    {
+        GameStatePersistance.SaveGameStateData(gameState);
+    }
+
     void OnDestroy()
     {
         GameEventBus.Off<GameStartedEvent>(OnGameStartedEvent);
         GameEventBus.Off<GameEndedEvent>(OnGameEndedEvent);
+        GameEventBus.Off<NewHighScoreEvent>(OnNewHighScoreEvent);
     }
 }

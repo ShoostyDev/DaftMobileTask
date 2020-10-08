@@ -13,7 +13,14 @@ public class HUDController : MonoBehaviour
 
     private void Awake()
     {
+        hUDView.BlackScreenGroup.alpha = 0;
+        hUDView.NewHighScoreTxtRT.gameObject.SetActive(false);
+        hUDView.BackButton.onClick.RemoveAllListeners();
+        hUDView.BackButton.onClick.AddListener(OnBackButtonClicked);
+        hUDView.BackButton.gameObject.SetActive(false);
+
         GameManager.GameEventBus.On<GameOverEvent>(OnGameOverEvent);
+        GameManager.GameEventBus.On<NewHighScoreEvent>(OnNewHighScoreEvent);
     }
 
     private void Start()
@@ -32,15 +39,30 @@ public class HUDController : MonoBehaviour
         }
     }
 
+    private void OnBackButtonClicked()
+    {
+        GameManager.GameEventBus.Trigger<GameEndedEvent>(new GameEndedEvent());
+    }
+
     private void OnGameOverEvent(GameOverEvent arg)
     {
         StopCoroutine(timerCoroutine);
-        UITweener.FadeImage(hUDView.BlackScreen, 0, 1, 1f);
+
+        hUDView.TimeSurvivedTxt.text = hUDView.TimeScoreTxt.text;
+        hUDView.BackButton.gameObject.SetActive(true);
+
+        StartCoroutine(UITweener.FadeCanvasGroup(hUDView.BlackScreenGroup, 0f, 1f, 1f));
+    }
+
+    private void OnNewHighScoreEvent(NewHighScoreEvent arg)
+    {
+        hUDView.NewHighScoreTxtRT.gameObject.SetActive(true);
     }
 
     private void OnDestroy()
     {
         GameManager.GameEventBus.Off<GameOverEvent>(OnGameOverEvent);
+        GameManager.GameEventBus.Off<NewHighScoreEvent>(OnNewHighScoreEvent);
     }
 }
 
@@ -48,5 +70,8 @@ public class HUDController : MonoBehaviour
 public class HUDView
 {
     public TextMeshProUGUI TimeScoreTxt;
-    public Image BlackScreen;
+    public CanvasGroup BlackScreenGroup;
+    public TextMeshProUGUI TimeSurvivedTxt;
+    public RectTransform NewHighScoreTxtRT;
+    public Button BackButton;
 }

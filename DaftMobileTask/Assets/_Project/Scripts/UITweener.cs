@@ -19,4 +19,18 @@ public static class UITweener
             yield return null;
         }
     }
+
+    public static IEnumerator FadeCanvasGroup(CanvasGroup group, float startAlpha, float endAlpha, float duration)
+    {
+        float currentAlpha = startAlpha;
+        float targetAlpha = endAlpha;
+        float timer = 0;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            group.alpha = Mathf.Lerp(currentAlpha, targetAlpha, timer / duration);
+            yield return null;
+        }
+    }
 }

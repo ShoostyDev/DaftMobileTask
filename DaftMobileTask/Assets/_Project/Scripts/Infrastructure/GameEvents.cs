@@ -11,13 +11,5 @@ namespace Assets.Scripts.Infrastructure
 
     public class GameOverEvent : IGameEvent { }
 
-    // public class ScoreTimerChangedEvent : IGameEvent
-    // {
-    //     public float ScoreTimer { get; set; }
-
-    //     public ScoreTimerChangedEvent(int time)
-    //     {
-    //         ScoreTimer = time;
-    //     }
-    // }
+    public class NewHighScoreEvent : IGameEvent { }
 }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class ObjectPool
 {
-    public GameObject PoolObjectsHolder;
-
     private Dictionary<PoolTypeEnum, List<IPoolable>> AvailableObjects = new Dictionary<PoolTypeEnum, List<IPoolable>>();
 
     public void Add(PoolTypeEnum type, IPoolable poolabelObject)
@@ -30,16 +26,6 @@ public class ObjectPool
             firstAvailable = instance;
         }
         return firstAvailable;
-    }
-
-    public List<IPoolable> GetAll(PoolTypeEnum type)
-    {
-        return AvailableObjects[type].ToList();
-    }
-
-    public void ClearType(PoolTypeEnum type)
-    {
-        AvailableObjects[type] = new List<IPoolable>();
     }
 
     public List<IPoolable> GetAllActive(PoolTypeEnum type)

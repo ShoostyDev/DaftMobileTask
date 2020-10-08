@@ -5,7 +5,7 @@ namespace Assets.Scripts.States
     {
         private float timeScore;
         public float TimeScore { get => timeScore; set => timeScore = value > 0 ? value : 0; }
-        private float bestTimeScore;
-        public float BestTimeScore { get => bestTimeScore; set => bestTimeScore = value > bestTimeScore ? value : bestTimeScore; }
+        private int bestTimeScore;
+        public int BestTimeScore { get => bestTimeScore; set => bestTimeScore = (int)value > bestTimeScore ? value : bestTimeScore; }
     }
 }

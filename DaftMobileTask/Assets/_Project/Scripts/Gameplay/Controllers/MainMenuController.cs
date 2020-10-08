@@ -40,6 +40,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnGameEndedEvent(GameEndedEvent arg)
     {
+        mainMenuView.RootCanvas.SetActive(true);
         SetBestSoreTxt();
         StartCoroutine(UITweener.FadeImage(mainMenuView.BlackScreen, 1, 0, 1f));
     }
