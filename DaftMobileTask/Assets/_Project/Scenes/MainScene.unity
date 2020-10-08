@@ -1351,9 +1351,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   refractionStrength: 0.5
-  reflectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  reflectionStrength: 0.7
-  waveSpeed: 1.25
+  reflectionColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+  reflectionStrength: 0.8
+  waveSpeed: 1
   dropInterval: 0.5
   shader: {fileID: 4800000, guid: 162fe242d486f4dab90ed53db15b9c19, type: 3}
 --- !u!1 &1646348426

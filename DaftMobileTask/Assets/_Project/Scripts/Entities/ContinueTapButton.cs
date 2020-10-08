@@ -6,13 +6,11 @@ using UnityEngine.UI;
 public class ContinueTapButton : TapButton
 {
     private Image redFillerImage;
-    protected RippleEffect ripples;
 
     protected override void Awake()
     {
         base.Awake();
         redFillerImage = transform.GetChild(0).GetComponent<Image>();
-        ripples = Camera.main.GetComponent<RippleEffect>();
     }
 
     protected override IEnumerator LifeTimeCounter()
@@ -29,7 +27,6 @@ public class ContinueTapButton : TapButton
 
     protected override void OnButtonTap()
     {
-        ripples.Emit(new Vector2(transform.position.x / Screen.width, transform.position.y / Screen.height));
         Deactivate();
     }
 

@@ -22,7 +22,6 @@ public class GameplayController : MonoBehaviour
     [SerializeField]
     private Transform buttonsParent;
 
-    private float startSpawnDelay = 3f;
 
     void Awake()
     {
@@ -42,19 +41,20 @@ public class GameplayController : MonoBehaviour
     private IEnumerator GameplayLoop()
     {
         IPoolable pooledObject;
+        float startSpawnDelay = 2f;
         float buttonLifeTime;
         float loopDelay;
         float difficultyAccelerator;
 
         while (true)
         {
-            difficultyAccelerator = scoreTimer * 0.1f;
-            // if(dif
+            difficultyAccelerator = scoreTimer * Random.Range(0.08f, 0.1f);
+            difficultyAccelerator = difficultyAccelerator > 1.5f ? 1.5f : difficultyAccelerator;
 
             if (Random.value > 0.1f)
             {
                 pooledObject = objectPool.Fetch(PoolTypeEnum.ContinueButton, SpawnPoolableTapButton);
-                buttonLifeTime = Random.Range(2f, 4f) - difficultyAccelerator * 0.1f;
+                buttonLifeTime = Random.Range(2f, 4f) - difficultyAccelerator; //2 : 4 - max 1.5f
             }
             else
             {
@@ -64,10 +64,9 @@ public class GameplayController : MonoBehaviour
 
             pooledObject.Activate(RandomizeOnScreenPos(), buttonLifeTime);
 
-            loopDelay = Random.Range(startSpawnDelay - (startSpawnDelay * 0.2f), startSpawnDelay);
-            loopDelay -= difficultyAccelerator;
+            loopDelay = Random.Range(startSpawnDelay - (startSpawnDelay * 0.2f), startSpawnDelay); //1.6 : 2
+            loopDelay -= difficultyAccelerator; // min 0.1 : 0.5
 
-            Debug.Log("dd " + difficultyAccelerator.ToString("n2") + " lf " + buttonLifeTime.ToString("n2") + " dl " + loopDelay.ToString("n2"));
             yield return new WaitForSeconds(loopDelay);
         }
     }
@@ -94,7 +93,7 @@ public class GameplayController : MonoBehaviour
     {
         Vector2 randomPos = new Vector2(Random.Range((float)Screen.width * 0.1f, (float)Screen.width * 0.9f), Random.Range(Screen.height * 0.1f, Screen.height * 0.9f));
 
-        if (TryCount > 1000) return Vector3.zero;//stackOverflow security
+        if (TryCount > 1000) return new Vector2(-1111, -1111);//stackOverflow security
 
         if (activeButtons == null)
         {
@@ -106,7 +105,7 @@ public class GameplayController : MonoBehaviour
         if (activeButtons != null)
             foreach (var active in activeButtons)
             {
-                if ((active.GetPosition() - randomPos).sqrMagnitude < 125 * 125)
+                if ((active.GetPosition() - randomPos).sqrMagnitude < 175 * 175)
                 {
                     return RandomizeOnScreenPos(activeButtons, ++TryCount);
                 }
@@ -132,10 +131,3 @@ public class GameplayController : MonoBehaviour
         GameManager.GameEventBus.Off<GameOverEvent>(OnGameOverEvent);
     }
 }
-
-
-//wybuch
-//skalowanie buttona gdy active deactive
-//poczatkowo 2-4 potem krocej zyja
-//coraz szybszy spawn - poziom trudnosci
-//skalowanie wzgledem ekranu

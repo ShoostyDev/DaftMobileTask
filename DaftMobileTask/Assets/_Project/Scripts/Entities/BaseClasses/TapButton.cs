@@ -11,14 +11,15 @@ public abstract class TapButton : MonoBehaviour, IPoolable
 
     private Button tapButton;
 
-    // [SerializeField]
-    // protected GameObject ExplosionParticle;
+    protected RippleEffect ripplesExplosion;
 
     protected virtual void Awake()
     {
         tapButton = GetComponent<Button>();
         tapButton.onClick.RemoveAllListeners();
         tapButton.onClick.AddListener(OnButtonTap);
+
+        ripplesExplosion = Camera.main.GetComponent<RippleEffect>();
 
         GameManager.GameEventBus.On<GameOverEvent>(OnGameOverEvent);
     }
@@ -29,6 +30,7 @@ public abstract class TapButton : MonoBehaviour, IPoolable
 
     protected void GameOver()
     {
+        ripplesExplosion.Emit(new Vector2(transform.position.x / Screen.width, transform.position.y / Screen.height));
         GameManager.GameEventBus.Trigger<GameOverEvent>(new GameOverEvent());
         Deactivate();
     }
